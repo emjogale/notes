@@ -3,6 +3,7 @@ import Note from "./components/Note";
 import Notification from "./components/Notification";
 import Footer from "./components/Footer";
 import noteService from "./services/notes";
+import axios from "axios";
 
 const App = () => {
 	const [notes, setNotes] = useState([]);
@@ -23,8 +24,8 @@ const App = () => {
 			important: Math.random() > 0.5,
 		};
 
-		noteService.create(noteObject).then((returnedNote) => {
-			setNotes(notes.concat(returnedNote));
+		axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+			setNotes(notes.concat(response.data));
 			setNewNote("");
 		});
 	};
